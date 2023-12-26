@@ -482,22 +482,28 @@ void surface_free(surface_t*);
 
 #ifdef PAINT_IMPLEMENTATION
 
-#include <assert.h>
+#ifdef __linux__
+    #include <wayland-client.h>
+#elif __MACH__
+    ;
+#elif _WIN32
+    ;
+#endif
 
-typedef struct app_event_listener_t {
+typedef struct __app_event_listener_t {
     void(*proc)(event_t, void*);
     void* param;
-} app_event_listener_t;
+} __app_event_listener_t;
 
-ARRAY_TYPE(app_event_listener_array, app_event_listener_t, DUMMY_COMPARATOR, DUMMY_SORTER, );
+ARRAY_TYPE(__app_event_listener_array, __app_event_listener_t, DUMMY_COMPARATOR, DUMMY_SORTER, );
 
 typedef struct app_t {
-    app_event_listener_array_t* listeners;
+    __app_event_listener_array_t* listeners;
 } app_t;
 
 app_t* app_new(void) {
     return NEW(app_t, {
-        .listeners = app_event_listener_array_new()
+        .listeners = __app_event_listener_array_new()
     });
 }
 
@@ -538,13 +544,7 @@ void app_poll_event(app_t* app, double timeout) {
 
 void app_free(app_t* app) {
     assert(("`app` is not NULL", app != NULL));
-#ifdef __linux__
-    ;
-#elif __MACH__
-    ;
-#elif _WIN32
-    ;
-#endif
+    __app_event_listener_array_free(app->listeners);
 }
 
 #endif
