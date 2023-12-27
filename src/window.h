@@ -5,6 +5,8 @@
 #include <paint/array.h>
 #include <paint/window.h>
 
+typedef struct __window_impl_t;
+
 typedef struct __window_event_listener_t {
     void(*proc)(event_t, void*);
     void* param;
@@ -15,6 +17,7 @@ ARRAY_TYPE(__window_event_listener_array, __window_event_listener_t, DUMMY_COMPA
 typedef struct window_t {
     surface_t* surface;
     __window_event_listener_array_t* listeners;
+    __window_impl_t* impl;
 } window_t;
 
 void __window_init(window_t*);
