@@ -1,7 +1,7 @@
-#define PAIN_IMPLEMENTATION
+#define PAINT_IMPLEMENTATION
 
 #include <stdio.h>
-#include "../paint.h"
+#include <paint.h>
 
 bool exit_ = false;
 

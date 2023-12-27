@@ -1,0 +1,20 @@
+{
+    "version": "2.0.0",
+    "tasks": [{
+        "label": "Build",
+        "type": "shell",
+        "command": "cmake -S . -B .build -G Ninja && (cd .build; ninja)",
+        "windows": {
+            "command": "cmake -S . -B .build -G Ninja; cd .build; ninja"
+        },
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared"
+        },
+        "problemMatcher": ["$gcc"]
+    }]
+}
