@@ -1,6 +1,6 @@
 #include <glib.h>
 #include <gtk/gtk.h>
-#include "../app.h"
+#include "../../app.h"
 
 void __app_init(app_t* app) {
     static bool __gtk_inited = false;

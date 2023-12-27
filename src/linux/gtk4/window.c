@@ -1,7 +1,7 @@
 #include <glib.h>
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
-#include "../window.h"
+#include "../../window.h"
 
 typedef struct __window_impl_t {
     GtkWidget* window;

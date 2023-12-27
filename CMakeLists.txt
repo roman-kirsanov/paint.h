@@ -24,7 +24,7 @@ endif()
 if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     file(GLOB SOURCES ${SOURCES} src/windows/*.c)
 elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    file(GLOB SOURCES ${SOURCES} src/linux/*.c)
+    file(GLOB SOURCES ${SOURCES} src/linux/gtk4/*.c)
 
     find_package(PkgConfig REQUIRED)
     pkg_check_modules(GTK4 REQUIRED IMPORTED_TARGET gtk4)
