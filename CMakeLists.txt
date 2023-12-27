@@ -6,16 +6,16 @@ set(CMAKE_C_STANDARD 17)
 set(CMAKE_C_COMPILER clang)
 set(CMAKE_CXX_COMPILER clang++)
 set(INCLUDE ${CMAKE_SOURCE_DIR}/include)
-set(OPTIONS, -Wall -Wno-unused-value)
+set(OPTIONS -Wall -Wno-unused-value)
 
 file(GLOB SOURCES src/*.c)
 
 if (${CMAKE_BUILD_TYPE} MATCHES "Debug")
-    set(OPTIONS, ${OPTIONS} -fsanitize=address -g)
+    set(OPTIONS ${OPTIONS} -fsanitize=address -g)
 endif()
 
 if (${CMAKE_BUILD_TYPE} MATCHES "Release")
-    set(OPTIONS, ${OPTIONS} -O3)
+    set(OPTIONS ${OPTIONS} -O3)
 endif()
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
