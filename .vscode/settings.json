@@ -1,4 +1,9 @@
 {
     "C_Cpp.default.defines": ["PAINT_IMPLEMENTATION"],
-    "C_Cpp.default.compileCommands": "${workspaceFolder}/.build/compile_commands.json"
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/.build/compile_commands.json",
+    "files.associations": {
+        "x.h": "c",
+        "xlib.h": "c",
+        "app.h": "c"
+    }
 }

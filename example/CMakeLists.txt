@@ -24,9 +24,9 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 
 elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     find_package(PkgConfig REQUIRED)
-    pkg_check_modules(GTK4 REQUIRED IMPORTED_TARGET gtk4)
+    pkg_check_modules(X11 REQUIRED IMPORTED_TARGET x11)
 
-    set(LIBRARIES ${LIBRARIES} ${GTK4_LIBRARIES})
+    set(LIBRARIES ${LIBRARIES} ${X11_LIBRARIES})
 elseif (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 
 endif()
