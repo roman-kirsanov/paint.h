@@ -20,6 +20,9 @@ typedef struct window_t {
     __window_impl_t* impl;
 } window_t;
 
+void __window_close(window_t*);
+void __window_resize(window_t*);
+
 void __window_init(window_t*);
 void __window_done(window_t*);
 vec2_t __window_position(window_t const*);

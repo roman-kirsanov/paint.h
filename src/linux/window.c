@@ -1,18 +1,43 @@
 #include <glib.h>
+#include <gdk/gdk.h>
 #include <gtk/gtk.h>
 #include "../window.h"
 
 typedef struct __window_impl_t {
     GtkWidget* window;
+    GtkWidget* glArea;
 } __window_impl_t;
+
+static gboolean __glarea_on_resize(GtkWidget* widget, GdkEvent* event, gpointer data) {
+    window_t* window = g_object_get_data(G_OBJECT(widget), "window");
+    if (window != NULL) {
+        __window_resize(window);
+    }
+    return false;
+}
+
+static gboolean __window_on_close(GtkWidget* widget, GdkEvent* event, gpointer data) {
+    window_t* window = g_object_get_data(G_OBJECT(widget), "window");
+    if (window != NULL) {
+        __window_close(window);
+    }
+    return true;
+}
 
 void __window_init(window_t* window) {
     assert(("window is not NULL", window != NULL));
     GtkWidget* widget = gtk_window_new();
+    GtkWidget* glArea = gtk_gl_area_new();
+    gtk_window_set_child(GTK_WINDOW(widget), glArea);
     gtk_window_set_resizable(GTK_WINDOW(widget), false);
     gtk_window_set_deletable(GTK_WINDOW(widget), false);
+    g_object_set_data(G_OBJECT(widget), "window", window);
+    g_object_set_data(G_OBJECT(glArea), "window", window);
+    g_signal_connect(widget, "close-request", G_CALLBACK(__window_on_close), NULL);
+    g_signal_connect(glArea, "resize", G_CALLBACK(__glarea_on_resize), NULL);
     window->impl = NEW(__window_impl_t, {
-        .window = widget
+        .window = widget,
+        .glArea = glArea
     });
 }
 
@@ -28,12 +53,9 @@ vec2_t __window_position(window_t const* window) {
 
 vec2_t __window_size(window_t const* window) {
     assert(("window is not NULL", window != NULL));
-    int32_t width = 0;
-    int32_t height = 0;
-    gtk_widget_get_size_request(window->impl->window, &width, &height);
     return (vec2_t){
-        (float)width,
-        (float)height
+        (float)gtk_widget_get_allocated_width(window->impl->window),
+        (float)gtk_widget_get_allocated_height(window->impl->window)
     };
 }
 

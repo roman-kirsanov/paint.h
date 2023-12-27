@@ -122,13 +122,23 @@ void window_set_minimizable(window_t* window, bool minimizable) {
 void window_on_event(window_t* window, void(*proc)(event_t, void*), void* param) {
     assert(("`window` is not NULL", window != NULL));
     assert(("`proc` is not NULL", proc != NULL));
-    ;
+    __window_event_listener_array_push(window->listeners, (__window_event_listener_t){
+        .proc = proc,
+        .param = param
+    });
 }
 
 void window_off_event(window_t* window, void(*proc)(event_t, void*), void* param) {
     assert(("`window` is not NULL", window != NULL));
     assert(("`proc` is not NULL", proc != NULL));
-    ;
+    for (int64_t i = 0; i < __window_event_listener_array_size(window->listeners); i++) {
+        __window_event_listener_t listener = __window_event_listener_array_item(window->listeners, i);
+        if ((listener.proc == proc)
+        && (listener.param == param)) {
+            __window_event_listener_array_remove_index(window->listeners, i);
+            break;
+        }
+    }
 }
 
 void window_center(window_t* window) {
@@ -147,4 +157,26 @@ void window_free(window_t* window) {
     __window_event_listener_array_free(window->listeners);
     // surface_free(window->surface);
     FREE(window);
+}
+
+void __window_close(window_t* window) {
+    assert(("`window` is not NULL", window != NULL));
+    for (int64_t i = 0; i < __window_event_listener_array_size(window->listeners); i++) {
+        __window_event_listener_t listener = __window_event_listener_array_item(window->listeners, i);
+        listener.proc((event_t){
+            .type = EVENT_TYPE_CLOSE,
+            .window = window
+        }, listener.param);
+    }
+}
+
+void __window_resize(window_t* window) {
+    assert(("`window` is not NULL", window != NULL));
+    for (int64_t i = 0; i < __window_event_listener_array_size(window->listeners); i++) {
+        __window_event_listener_t listener = __window_event_listener_array_item(window->listeners, i);
+        listener.proc((event_t){
+            .type = EVENT_TYPE_RESIZE,
+            .window = window
+        }, listener.param);
+    }
 }

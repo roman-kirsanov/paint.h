@@ -1,12 +1,4 @@
 {
     "C_Cpp.default.defines": ["PAINT_IMPLEMENTATION"],
-    "C_Cpp.default.compileCommands": "${workspaceFolder}/.build/compile_commands.json",
-    "files.associations": {
-        "array": "cpp",
-        "string": "cpp",
-        "string_view": "cpp",
-        "glib.h": "c",
-        "gtk.h": "c",
-        "window.h": "c"
-    }
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/.build/compile_commands.json"
 }

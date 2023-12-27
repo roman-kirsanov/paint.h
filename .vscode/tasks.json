@@ -3,9 +3,9 @@
     "tasks": [{
         "label": "Build Library",
         "type": "shell",
-        "command": "cmake -S . -B .build -G Ninja && (cd .build; ninja)",
+        "command": "cmake -DCMAKE_BUILD_TYPE=Debug -S . -B .build -G Ninja && (cd .build; ninja)",
         "windows": {
-            "command": "cmake -S . -B .build -G Ninja; cd .build; ninja"
+            "command": "cmake -DCMAKE_BUILD_TYPE=Debug -S . -B .build -G Ninja; cd .build; ninja"
         },
         "group": {
           "kind": "build",
@@ -19,9 +19,9 @@
     }, {
       "label": "Build Example",
       "type": "shell",
-      "command": "cmake -S . -B .build -G Ninja && (cd .build; ninja)",
+      "command": "cmake -DCMAKE_BUILD_TYPE=Debug -S . -B .build -G Ninja && (cd .build; ninja)",
       "windows": {
-          "command": "cmake -S . -B .build -G Ninja; cd .build; ninja"
+          "command": "cmake -DCMAKE_BUILD_TYPE=Debug -S . -B .build -G Ninja; cd .build; ninja"
       },
       "group": {
         "kind": "build"
@@ -33,6 +33,7 @@
       "options": {
         "cwd": "${workspaceFolder}/example"
       },
+      "dependsOn": ["Build Library"],
       "problemMatcher": ["$gcc"]
   }]
 }

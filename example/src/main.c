@@ -8,7 +8,12 @@ void app_event(event_t event, void* param) {
 }
 
 void window_event(event_t event, void* param) {
-    ;
+    if (event.type == EVENT_TYPE_CLOSE) {
+        exit_ = true;
+    } else if (event.type == EVENT_TYPE_RESIZE) {
+        vec2_t size = window_size(event.window);
+        OUTPUT("width: %f, height: %f\n", size.width, size.height);
+    }
 }
 
 int main(int argc, char const *argv[]) {

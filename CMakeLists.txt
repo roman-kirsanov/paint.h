@@ -7,16 +7,18 @@ set(CMAKE_C_COMPILER clang)
 set(CMAKE_CXX_COMPILER clang++)
 set(CMAKE_EXPORT_COMPILE_COMMANDS True)
 set(INCLUDE ${CMAKE_SOURCE_DIR}/include)
-set(OPTIONS -Wall -Wno-unused-value -Wno-missing-braces)
+set(COPTIONS -Wall -Wno-unused-value -Wno-missing-braces)
 
 file(GLOB SOURCES src/*.c)
 
+message(INFO ${CMAKE_BUILD_TYPE})
+
 if (${CMAKE_BUILD_TYPE} MATCHES "Debug")
-    set(OPTIONS ${OPTIONS} -fsanitize=address -g)
+    set(COPTIONS ${COPTIONS} -fsanitize=address -g)
 endif()
 
 if (${CMAKE_BUILD_TYPE} MATCHES "Release")
-    set(OPTIONS ${OPTIONS} -O3)
+    set(COPTIONS ${COPTIONS} -O3)
 endif()
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
@@ -32,5 +34,5 @@ elseif (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 endif()
 
 include_directories(${INCLUDE})
-add_compile_options(${OPTIONS})
+add_compile_options(${COPTIONS})
 add_library(paint ${SOURCES})
