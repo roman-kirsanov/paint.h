@@ -1,5 +1,7 @@
 #include "app.h"
 
+ARRAY_TYPE_C(__app_event_listener_array, __app_event_listener_t, DUMMY_COMPARATOR, DUMMY_SORTER);
+
 app_t* app_new(void) {
     app_t* app = NEW(app_t, {
         .listeners = __app_event_listener_array_new()

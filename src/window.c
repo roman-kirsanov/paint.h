@@ -1,12 +1,16 @@
 #include "surface.h"
 #include "window.h"
 
+ARRAY_TYPE_C(__window_event_listener_array, __window_event_listener_t, DUMMY_COMPARATOR, DUMMY_SORTER);
+
 window_t* window_new(void) {
-	return NEW(window_t, {
-        .surface = surface_new(),
-		.listeners = __window_event_listener_array_new()
+    window_t* window = NEW(window_t, {
+        .surface = NULL,
+		.listeners = __window_event_listener_array_new(),
+        .impl = NULL
 	});
-    ;
+    __window_init(window);
+    return window;
 }
 
 surface_t const* window_surface(window_t const* window) {
@@ -118,14 +122,12 @@ void window_set_minimizable(window_t* window, bool minimizable) {
 void window_on_event(window_t* window, void(*proc)(event_t, void*), void* param) {
     assert(("`window` is not NULL", window != NULL));
     assert(("`proc` is not NULL", proc != NULL));
-    assert(("`param` is not NULL", param != NULL));
     ;
 }
 
 void window_off_event(window_t* window, void(*proc)(event_t, void*), void* param) {
     assert(("`window` is not NULL", window != NULL));
     assert(("`proc` is not NULL", proc != NULL));
-    assert(("`param` is not NULL", param != NULL));
     ;
 }
 
@@ -143,6 +145,6 @@ void window_free(window_t* window) {
     assert(("`window` is not NULL", window != NULL));
     __window_done(window);
     __window_event_listener_array_free(window->listeners);
-    surface_free(window->surface);
+    // surface_free(window->surface);
     FREE(window);
 }

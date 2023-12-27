@@ -1,5 +1,3 @@
-#define PAINT_IMPLEMENTATION
-
 #include <stdio.h>
 #include <paint.h>
 
@@ -20,8 +18,10 @@ int main(int argc, char const *argv[]) {
 
     window_t* win = window_new();
     window_on_event(win, window_event, NULL);
-    window_set_maximizable(win, true);
-    window_set_minimizable(win, true);
+    // window_set_maximizable(win, true);
+    // window_set_minimizable(win, true);
+    window_set_title(win, "Hello, World!");
+    window_set_size(win, (vec2_t){ 640.0f, 480.0f });
     window_set_closable(win, true);
     window_set_sizable(win, true);
     window_set_visible(win, true);
@@ -30,9 +30,9 @@ int main(int argc, char const *argv[]) {
         app_poll_event(app, 16.667);
 
         surface_t const* sfc = window_surface(win);
-        surface_clear(sfc, (vec4_t){ 0.0f, 0.0f, 0.0f, 1.0f });
+        // surface_clear(sfc, (vec4_t){ 0.0f, 0.0f, 0.0f, 1.0f });
         ;
-        surface_flush(sfc);
+        // surface_flush(sfc);
         window_swap(win);
 
         if (exit_) {

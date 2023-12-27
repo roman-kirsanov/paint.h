@@ -5,14 +5,14 @@
 #include <paint/array.h>
 #include <paint/window.h>
 
-typedef struct __window_impl_t;
+typedef struct __window_impl_t __window_impl_t;
 
 typedef struct __window_event_listener_t {
     void(*proc)(event_t, void*);
     void* param;
 } __window_event_listener_t;
 
-ARRAY_TYPE(__window_event_listener_array, __window_event_listener_t, DUMMY_COMPARATOR, DUMMY_SORTER, );
+ARRAY_TYPE_H(__window_event_listener_array, __window_event_listener_t, );
 
 typedef struct window_t {
     surface_t* surface;

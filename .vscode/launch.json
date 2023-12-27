@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [{
+        "name": "Example Debug",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/example/.build/example",
+        "stopAtEntry": false,
+        "cwd": "${fileDirname}",
+        "MIMode": "gdb",
+        "miDebuggerPath": "/usr/bin/gdb",
+        "preLaunchTask": "Build Example",
+        "internalConsoleOptions": "openOnSessionStart",
+        "windows": {
+            "type": "cppvsdbg",
+            "program": "${workspaceFolder}\\example\\example.exe"
+        }
+    }]
+}
